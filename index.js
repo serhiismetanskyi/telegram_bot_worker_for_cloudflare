@@ -17,7 +17,7 @@ export default {
             text: text
           };
 
-          console.log(`Received message from Telegram: chatId = ${chatId}, userName = ${userName}, text = ${text}`);
+          console.log(`Received message from Telegram: ${externalPayload}`);
 
           const externalApiUrl = await env.SECRET_STORE.get("N8N");
           console.log(`Calling external API URL: ${externalApiUrl}`);
