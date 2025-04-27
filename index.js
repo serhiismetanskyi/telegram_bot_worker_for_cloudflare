@@ -17,7 +17,7 @@ export default {
             text: text
           };
 
-          console.log(`Received message from Telegram: ${externalPayload}`);
+          console.log(`Received message from Telegram: chatId = ${chatId}, userName = ${userName}, text = ${text}`);
 
           const externalApiUrl = await env.SECRET_STORE.get("N8N");
           console.log(`Calling external API URL: ${externalApiUrl}`);
@@ -48,10 +48,6 @@ export default {
         const message = url.searchParams.get('message');
 
         if (chatId && message) {
-          // Очищення повідомлення від неприпустимих символів
-          const cleanMessage = message.replace(/[\x00-\x1F\x7F]/g, '');  // Видаляє всі контрольні символи
-          const cleanMessageWithSpaces = cleanMessage.replace(/\n/g, ' ').replace(/\t/g, ' ');  // Заміна \n та \t на пробіли
-
           const token = await env.SECRET_STORE.get("TOKEN");
           console.log(`Using Telegram token: ${token}`);
           
