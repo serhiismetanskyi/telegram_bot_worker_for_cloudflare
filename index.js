@@ -47,7 +47,9 @@ export default {
         const message = url.searchParams.get('message');
 
         if (chatId && message) {
-          const cleanMessage = message.replace(/\n/g, ' ');
+          // Очищення повідомлення від неприпустимих символів
+          const cleanMessage = message.replace(/[\x00-\x1F\x7F]/g, '');  // Видаляє всі контрольні символи
+          const cleanMessageWithSpaces = cleanMessage.replace(/\n/g, ' ').replace(/\t/g, ' ');  // Заміна \n та \t на пробіли
 
           const token = await env.SECRET_STORE.get("TOKEN");
           console.log(`Using Telegram token: ${token}`);
@@ -57,7 +59,7 @@ export default {
           
           const payload = {
             chat_id: chatId,
-            text: cleanMessage
+            text: cleanMessageWithSpaces  // Використовуємо очищене повідомлення
           };
 
           const response = await fetch(telegramUrl, {
@@ -71,7 +73,7 @@ export default {
           if (!response.ok) {
             console.error(`Failed to send message with status: ${response.status}`);
           } else {
-            console.log(`Message sent to chat_id ${chatId}: ${cleanMessage}`);
+            console.log(`Message sent to chat_id ${chatId}: ${cleanMessageWithSpaces}`);
           }
 
           return new Response('Message sent', { status: 200 });
