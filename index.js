@@ -6,7 +6,6 @@ export default {
       if (url.pathname === '/webhook') {
         try {
           const data = await request.json();
-          console.log('Received message from Telegram:', data);
 
           const chatId = data.message?.chat?.id;
           const userName = data.message?.from?.username || data.message?.from?.first_name || 'No Name';
@@ -17,6 +16,8 @@ export default {
             username: userName,
             text: text
           };
+
+           console.log(`Received message from Telegram: chatId = ${chatId}, userName = ${userName}, text = ${text}`);
 
           const externalApiUrl = await env.SECRET_STORE.get("N8N");
           console.log(`Calling external API URL: ${externalApiUrl}`);
