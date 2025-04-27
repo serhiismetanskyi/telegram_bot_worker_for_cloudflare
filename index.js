@@ -56,7 +56,7 @@ export default {
           
           const payload = {
             chat_id: chatId,
-            text: cleanMessageWithSpaces  // Використовуємо очищене повідомлення
+            text: message // Використовуємо текст повідомлення без очищення
           };
 
           const response = await fetch(telegramUrl, {
@@ -70,7 +70,7 @@ export default {
           if (!response.ok) {
             console.error(`Failed to send message with status: ${response.status}`);
           } else {
-            console.log(`Message sent to chat_id ${chatId}: ${cleanMessageWithSpaces}`);
+            console.log(`Message sent to chat_id ${chatId}: ${message}`);
           }
 
           return new Response('Message sent', { status: 200 });
