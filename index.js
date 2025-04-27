@@ -18,8 +18,7 @@ export default {
             text: text
           };
 
-          // Читання URL для зовнішнього API з KV
-          const externalApiUrl = await env.SECRET_STORE.get("N8N");  // Зчитуємо API URL з KV
+          const externalApiUrl = await env.SECRET_STORE.get("N8N");
           console.log(`Calling external API URL: ${externalApiUrl}`);
           
           const response = await fetch(externalApiUrl, {
@@ -48,16 +47,17 @@ export default {
         const message = url.searchParams.get('message');
 
         if (chatId && message) {
-          // Читання токену з KV
-          const token = await env.SECRET_STORE.get("TOKEN");  // Зчитуємо Telegram Token з KV
-          console.log(`Using Telegram token: ${token}`);  // Логування токену (обережно в продакшн)
+          const cleanMessage = message.replace(/\n/g, ' ');
+
+          const token = await env.SECRET_STORE.get("TOKEN");
+          console.log(`Using Telegram token: ${token}`);
           
           const telegramUrl = `https://api.telegram.org/bot${token}/sendMessage`;
           console.log(`Sending message to Telegram URL: ${telegramUrl}`);
           
           const payload = {
             chat_id: chatId,
-            text: message
+            text: cleanMessage
           };
 
           const response = await fetch(telegramUrl, {
@@ -71,7 +71,7 @@ export default {
           if (!response.ok) {
             console.error(`Failed to send message with status: ${response.status}`);
           } else {
-            console.log(`Message sent to chat_id ${chatId}: ${message}`);
+            console.log(`Message sent to chat_id ${chatId}: ${cleanMessage}`);
           }
 
           return new Response('Message sent', { status: 200 });
