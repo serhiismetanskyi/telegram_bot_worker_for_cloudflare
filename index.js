@@ -56,7 +56,7 @@ export default {
           
           const payload = {
             chat_id: chatId,
-            text: message // Використовуємо текст повідомлення без очищення
+            text: message
           };
 
           const response = await fetch(telegramUrl, {
