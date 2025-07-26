@@ -10,7 +10,8 @@ In this case, the bot is specifically designed for integration with **[n8n](http
 
 1. Create a Telegram bot via [@BotFather](https://t.me/BotFather).
 2. Configure environment variables using Cloudflare KV Storage for your worker.
-3. Deploy the code to Cloudflare Workers.
-4. Set the webhook for your Telegram bot to point to your deployed Cloudflare Worker.
+3. Set up your `wrangler.toml` configuration file for deployment.
+4. Deploy the code to Cloudflare Workers.
+5. Set the webhook for your Telegram bot to point to your deployed Cloudflare Worker.
 
 Once configured, messages sent to your bot will be automatically forwarded to n8n.
