@@ -1,4 +1,4 @@
-name = "ai-test-case-creator-agent"
+name = "worker-name"
 main = "index.js"
 compatibility_date = "2025-04-25"
 
@@ -7,4 +7,4 @@ enabled = true
 
 [[kv_namespaces]]
 binding = "SECRET_STORE"
-id = "2a3cf21a3ebb4152a19cd28c93838075"
+id = "namespaces-id"
