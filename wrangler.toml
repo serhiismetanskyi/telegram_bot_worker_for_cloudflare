@@ -1,0 +1,10 @@
+name = "worker-name"
+main = "index.js"
+compatibility_date = "2025-04-25"
+
+[observability.logs]
+enabled = true
+
+[[kv_namespaces]]
+binding = "SECRET_STORE"
+id = "namespaces-id"
